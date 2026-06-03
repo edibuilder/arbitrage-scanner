@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arbitrage Scanner</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <h1>Arbitrage Scanner</h1>
+  <p class="subtitle">Real odds · Select bookmakers · Auto-detect arbitrage</p>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="scan">Scanner</button>
+    <button class="tab" data-tab="manual">Calculator</button>
+    <button class="tab" data-tab="guide">Guide</button>
+  </div>
+
+  <div id="tab-scan" class="panel active">
+    <div class="row">
+      <input type="password" id="apiKey" placeholder="API key from the-odds-api.com" style="flex:1;" autocomplete="off">
+      <button class="primary" id="fetchBtn">⟳ Load events</button>
+      <button id="demoBtn">Demo</button>
+    </div>
+
+    <div class="sport-bar" id="sportBar"></div>
+
+    <div id="bkPanel" class="bk-panel" style="display:none;">
+      <div class="bk-header">
+        <span class="bk-title"> Select bookmakers</span>
+        <div class="bk-actions">
+          <button id="selectAllBtn">✓ All</button>
+          <button id="selectNoneBtn">✗ Clear</button>
+          <button id="presetBgBtn">🇧🇬 Bulgarian</button>
+          <button id="presetWorldBtn"> Top international</button>
+        </div>
+      </div>
+      <div class="bk-grid" id="bkGrid"></div>
+      <div class="bk-footer" id="bkFooter"></div>
+    </div>
+
+    <div class="filters">
+      <label>Min arb %:</label>
+      <input type="number" id="minPct" value="0" step="0.1" min="0" style="width:65px;">
+      <label>Stake (USD):</label>
+      <input type="number" id="stakeAmt" value="200" step="50" min="1" style="width:85px;">
+      <label><input type="checkbox" id="onlyArb" style="margin-right:4px;width:auto;">Arb only</label>
+    </div>
+
+    <div class="status" id="statusArea"></div>
+    <div id="arbList"></div>
+  </div>
+
+  <div id="tab-manual" class="panel">
+    <div class="man-section">
+      <div class="man-title">Outcome 1 — Home / 1</div>
+      <div class="man-grid">
+        <div><label>Odds</label><input type="number" id="o1" value="2.15" step="0.01" min="1.01"></div>
+        <div><label>Bookmaker</label><input type="text" id="n1" value="Betano"></div>
+      </div>
+    </div>
+    <div class="man-section">
+      <div class="man-title">Outcome 2 — Draw / X</div>
+      <div class="man-grid">
+        <div><label>Odds</label><input type="number" id="o2" value="3.60" step="0.01" min="1.01"></div>
+        <div><label>Bookmaker</label><input type="text" id="n2" value="Winbet"></div>
+      </div>
+    </div>
+    <div class="man-section">
+      <div class="man-title">Outcome 3 — Away / 2 (optional)</div>
+      <div class="man-grid">
+        <div><label>Odds (0 = ignore)</label><input type="number" id="o3" value="3.80" step="0.01" min="0"></div>
+        <div><label>Bookmaker</label><input type="text" id="n3" value="Bet365"></div>
+      </div>
+    </div>
+    <div class="filters">
+      <label>Total stake:</label>
+      <input type="number" id="mStake" value="300" step="50" min="1" style="width:90px;">
+    </div>
+    <div id="manualRes"></div>
+  </div>
+
+  <div id="tab-guide" class="panel">
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-num">500</div><div class="stat-lbl">Free requests / month</div></div>
+      <div class="stat-card"><div class="stat-num">40+</div><div class="stat-lbl">Bookmakers in DB</div></div>
+      <div class="stat-card"><div class="stat-num">30+</div><div class="stat-lbl">Sports & leagues</div></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div><div class="step-title">Register for free</div><div class="step-desc">Go to <a href="https://the-odds-api.com" target="_blank">the-odds-api.com</a> and create an account.</div></div></div>
+      <div class="step"><div class="step-num">2</div><div><div class="step-title">Copy your API key</div><div class="step-desc">From the dashboard - 32 characters.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div><div class="step-title">Load events & select bookmakers</div><div class="step-desc">Click "Load" - the app shows all available bookmakers. Select only the ones you have accounts with.</div></div></div>
+      <div class="step"><div class="step-num">4</div><div><div class="step-title">Act fast!</div><div class="step-desc">Arb windows last minutes - place all bets simultaneously.</div></div></div>
+    </div>
+    <div class="note"> <strong>Important:</strong> Bookmakers may limit accounts that regularly use arbitrage betting.</div>
+  </div>
+</div>
+
+<script src="utils.js"></script>
+<script src="api.js"></script>
+<script src="ui.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
